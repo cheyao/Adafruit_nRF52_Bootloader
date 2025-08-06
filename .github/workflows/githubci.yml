@@ -9,29 +9,12 @@ on:
       - created
 
 jobs:
-  set-matrix:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set matrix
-        id: set-matrix
-        working-directory: src/boards
-        run: |
-          MATRIX_JSON=$(ls -d */ | sed 's/\/$//' | jq -R -s -c 'split("\n")[:-1]')
-          echo "matrix=$MATRIX_JSON"
-          echo "matrix=$MATRIX_JSON" >> $GITHUB_OUTPUT
-
   build:
-    needs: set-matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        board: ${{ fromJSON(needs.set-matrix.outputs.matrix) }}
+        board: ["leptosis"]
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
