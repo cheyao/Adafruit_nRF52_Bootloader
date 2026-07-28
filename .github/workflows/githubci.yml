@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        board: ["leptosis"]
+        board: ["leptosis", "nrf54l15_discovery"]
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
